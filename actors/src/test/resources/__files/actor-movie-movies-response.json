@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "title": "Title",
+    "releaseDate": "2022-12-31",
+    "description": "Description",
+    "rating": 8.0
+  },
+  {
+    "id": 2,
+    "title": "Title 2",
+    "releaseDate": "2022-12-31",
+    "description": "Description 2",
+    "rating": 9.0
+  }
+]

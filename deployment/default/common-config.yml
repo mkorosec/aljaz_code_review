@@ -1,0 +1,20 @@
+services:
+  network-deploy-service:
+    networks:
+      - code-challenge
+
+  microservice-base-config:
+    extends:
+      service: network-deploy-service
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    environment:
+
+
+  microservice-eureka-config:
+    extends:
+      service: microservice-base-config
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8070/eureka/
