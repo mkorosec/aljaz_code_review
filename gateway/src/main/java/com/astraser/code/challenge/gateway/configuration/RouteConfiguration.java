@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 public class RouteConfiguration {
 
     @Bean
-    public RouteLocator acountMovieRouteConfig(RouteLocatorBuilder routeLocatorBuilder) {
+    public RouteLocator accountMovieRouteConfig(RouteLocatorBuilder routeLocatorBuilder) {
         return routeLocatorBuilder.routes().route(p -> p
                         .path("/code-challenge/actors/**")
                         .filters(f -> f.rewritePath("/code-challenge/actors/(?<segment>.*)", "/${segment}"))
