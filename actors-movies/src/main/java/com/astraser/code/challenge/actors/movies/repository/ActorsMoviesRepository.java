@@ -13,8 +13,10 @@ public interface ActorsMoviesRepository extends JpaRepository<ActorMovie, Long> 
     Optional<ActorMovie> findByActorIdAndMovieId(Long actorId, Long movieId);
 
     Collection<ActorMovie> findAllByActorId(Long actorId);
+
     Collection<ActorMovie> findAllByMovieId(Long movieId);
 
     void deleteByActorId(Long actorId);
+
     void deleteByMovieId(Long movieId);
 }

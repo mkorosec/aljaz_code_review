@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="insert-table-actor" author="astraser">
+        <sql>
+            INSERT INTO actor(first_name,last_name,gender,created_at,created_by,updated_at,updated_by,birth_date)
+            VALUES('First Name', 'Last Name', 'MALE', '2022-12-31', 'ACCOUNTS_MS', null,null,'1989-12-31');
+            INSERT INTO actor(first_name,last_name,gender,created_at,created_by,updated_at,updated_by,birth_date)
+            VALUES('Second Name', 'Second Name', 'FEMALE', '2022-12-31', 'ACCOUNTS_MS', null,null,'1990-12-31');
+            INSERT INTO actor(first_name,last_name,gender,created_at,created_by,updated_at,updated_by,birth_date)
+            VALUES('Third Name', 'Third Name', 'FEMALE', '2022-12-31', 'ACCOUNTS_MS', null,null,'1990-12-31');
+            INSERT INTO actor(first_name,last_name,gender,created_at,created_by,updated_at,updated_by,birth_date)
+            VALUES('Fourth Name', 'Fourth Name', 'FEMALE', '2022-12-31', 'ACCOUNTS_MS', null,null,'1990-12-31');
+            INSERT INTO actor(first_name,last_name,gender,created_at,created_by,updated_at,updated_by,birth_date)
+            VALUES('Fifth Name', 'Fifth Name', 'FEMALE', '2022-12-31', 'ACCOUNTS_MS', null,null,'1990-12-31');
+            INSERT INTO actor(first_name,last_name,gender,created_at,created_by,updated_at,updated_by,birth_date)
+            VALUES('Sixth Name', 'Sixth Name', 'FEMALE', '2022-12-31', 'ACCOUNTS_MS', null,null,'1990-12-31');
+            INSERT INTO actor(first_name,last_name,gender,created_at,created_by,updated_at,updated_by,birth_date)
+            VALUES('Seventh Name', 'Seventh Name', 'FEMALE', '2022-12-31', 'ACCOUNTS_MS', null,null,'1990-12-31');
+            INSERT INTO actor(first_name,last_name,gender,created_at,created_by,updated_at,updated_by,birth_date)
+            VALUES('Eight Name', 'Eight Name', 'FEMALE', '2022-12-31', 'ACCOUNTS_MS', null,null,'1990-12-31');
+            INSERT INTO actor(first_name,last_name,gender,created_at,created_by,updated_at,updated_by,birth_date)
+            VALUES('Ninth Name', 'Ninth Name', 'MALE', '2022-12-31', 'ACCOUNTS_MS', null,null,'1989-12-31');
+            INSERT INTO actor(first_name,last_name,gender,created_at,created_by,updated_at,updated_by,birth_date)
+            VALUES('Tenth Name', 'Tenth Name', 'FEMALE', '2022-12-31', 'ACCOUNTS_MS', null,null,'1990-12-31');
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

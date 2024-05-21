@@ -29,21 +29,16 @@ public class ActorMovieClientHelper {
             if (actorMoviesDtoResponseEntity.hasBody()) {
                 actorDto.setMovies(actorMoviesDtoResponseEntity.getBody());
             }
-        }
-        catch(FeignException fe)
-        {
-            logger.error("Failed to fetch movies for actor {} with exception: {}",actorDto.getId(), fe.getMessage());
+        } catch (FeignException fe) {
+            logger.error("Failed to fetch movies for actor {} with exception: {}", actorDto.getId(), fe.getMessage());
         }
     }
 
-    public void deleteActorMovies(Long id)
-    {
+    public void deleteActorMovies(Long id) {
         try {
             actorMovieClient.deleteActorMovieByActor(id);
-        }
-        catch(FeignException fe)
-        {
-            logger.error("Failed to delete movies for actor {} with exception: {}",id, fe.getMessage());
+        } catch (FeignException fe) {
+            logger.error("Failed to delete movies for actor {} with exception: {}", id, fe.getMessage());
         }
     }
 }

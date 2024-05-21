@@ -1,6 +1,5 @@
 package com.astraser.code.challenge.actors.movies.dto;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 

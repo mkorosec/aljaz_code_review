@@ -1,0 +1,39 @@
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="create-table-movie" author="astraser">
+        <createTable tableName="movie">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="title" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="rating" type="decimal">
+                <constraints nullable="true"/>
+            </column>
+            <column name="release_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="date">
+                <constraints nullable="true"/>
+            </column>
+            <column name="updated_by" type="varchar(20)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

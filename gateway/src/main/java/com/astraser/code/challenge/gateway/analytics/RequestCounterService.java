@@ -12,7 +12,7 @@ public class RequestCounterService {
     private final static Map<String, AtomicLong> requestCounters = new HashMap<>();
 
     public void incrementCounter(String path) {
-        requestCounters.computeIfAbsent(path, key -> new AtomicLong(0L)).getAndIncrement();
+        requestCounters.computeIfAbsent(path, k -> new AtomicLong(0L)).getAndIncrement();
     }
 
     public Map<String, AtomicLong> getRequestCount() {

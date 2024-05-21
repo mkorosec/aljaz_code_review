@@ -7,8 +7,12 @@ import lombok.*;
 import java.time.LocalDate;
 
 @Entity
-@Getter @Setter @ToString @AllArgsConstructor @NoArgsConstructor
-public class Actor extends BaseEntity{
+@Getter
+@Setter
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
+public class Actor extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

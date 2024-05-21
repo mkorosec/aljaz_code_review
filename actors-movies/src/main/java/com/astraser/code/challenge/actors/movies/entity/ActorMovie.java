@@ -1,6 +1,9 @@
 package com.astraser.code.challenge.actors.movies.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.*;
 
 @Entity
@@ -8,8 +11,9 @@ import lombok.*;
 @Setter
 @ToString
 @Builder
-@AllArgsConstructor @NoArgsConstructor
-public class ActorMovie extends BaseEntity{
+@AllArgsConstructor
+@NoArgsConstructor
+public class ActorMovie extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

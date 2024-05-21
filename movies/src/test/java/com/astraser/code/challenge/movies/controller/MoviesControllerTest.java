@@ -1,5 +1,6 @@
 package com.astraser.code.challenge.movies.controller;
 
+import com.astraser.code.challenge.movies.configuration.MoviesTestConfiguration;
 import com.astraser.code.challenge.movies.dto.MovieDto;
 import com.astraser.code.challenge.movies.service.MoviesService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,7 +11,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -25,6 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(MoviesController.class)
 @AutoConfigureMockMvc
+@ContextConfiguration(classes = {MoviesTestConfiguration.class})
 class MoviesControllerTest {
 
     @Autowired
@@ -47,7 +51,7 @@ class MoviesControllerTest {
         movieDto.setReleaseDate(LocalDate.now());
         movieDto.setRating(7.5);
 
-        when(moviesService.read(movieId,true)).thenReturn(movieDto);
+        when(moviesService.read(movieId, true)).thenReturn(movieDto);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/{id}", movieId))
                 .andExpect(status().isOk())
@@ -98,7 +102,7 @@ class MoviesControllerTest {
 
         when(moviesService.update(movieId, movieDto)).thenReturn(movieDto);
 
-        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/{id}",movieId)
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/{id}", movieId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(movieDto)))
                 .andExpect(status().isOk())
@@ -110,6 +114,7 @@ class MoviesControllerTest {
 
         ;
     }
+
     @Test
     public void testListActorsWithoutPagination() throws Exception {
         when(moviesService.list()).thenReturn(createMoviesList());
@@ -129,11 +134,11 @@ class MoviesControllerTest {
     }
 
     @Test
-    public void testListActorsWithPagination() throws Exception {
+    public void testListMoviesWithPagination() throws Exception {
         int page = 0;
         int size = 10;
 
-        when(moviesService.listPaginated(page, size)).thenReturn(new PageImpl<>(createMoviesList().stream().toList()));
+        when(moviesService.listPaginated(page, size)).thenReturn(new PageImpl<>(createMoviesList().stream().toList(), Pageable.ofSize(size), page));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/list")
                         .param("page", String.valueOf(page))
@@ -153,8 +158,7 @@ class MoviesControllerTest {
     }
 
 
-    private Collection<MovieDto> createMoviesList()
-    {
+    private Collection<MovieDto> createMoviesList() {
         Long movieId = 1L;
         MovieDto movieDto = new MovieDto();
         movieDto.setId(movieId);
@@ -171,7 +175,7 @@ class MoviesControllerTest {
         movieDto2.setReleaseDate(LocalDate.now());
         movieDto2.setRating(8.5);
 
-        return Arrays.asList(movieDto,movieDto2);
+        return Arrays.asList(movieDto, movieDto2);
     }
 
 }

@@ -1,34 +1,35 @@
 package com.astraser.code.challenge.movies.service.impl;
 
 import com.astraser.code.challenge.movies.configuration.MoviesServiceImplConfiguration;
-import com.astraser.code.challenge.movies.dto.ActorDto;
 import com.astraser.code.challenge.movies.dto.MovieDto;
 import com.astraser.code.challenge.movies.exception.MovieNotFoundException;
 import com.astraser.code.challenge.movies.service.MoviesService;
 import com.astraser.code.challenge.movies.service.client.ActorMovieClient;
-import com.astraser.code.challenge.movies.utils.MoviesHelper;
+import com.astraser.code.challenge.movies.utils.MoviesTestUtils;
 import com.github.tomakehurst.wiremock.WireMockServer;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {MoviesServiceImplConfiguration.class})
 @ActiveProfiles("test")
+@Transactional
 class MoviesServiceImplTests {
 
     @Autowired
@@ -41,63 +42,79 @@ class MoviesServiceImplTests {
     private ActorMovieClient actorMovieClient;
 
     @Autowired
-    private MoviesHelper moviesHelper;
+    private MoviesTestUtils moviesTestUtils;
 
     @BeforeEach
     void setUp() throws IOException {
-        moviesHelper.setupMockActorMovie(wireMockServer);
+        moviesTestUtils.setupMockActorMovie(wireMockServer);
     }
 
     @Test
-    void createUpdateAndDeleteMovie() {
+    void testCreateUpdateDeleteMovie() {
 
-        MovieDto movie = moviesHelper.createMovieDto();
+        MovieDto movie = moviesTestUtils.createMovieDto(1L, 8.0, LocalDate.of(2024, 1, 1));
         MovieDto created = moviesService.create(movie);
 
-        validateMovie(movie, created);
+        moviesTestUtils.validateMovie(movie, created);
 
         //Update movie
-        created.setTitle("Updated Title");
-        created.setDescription("Updated Description");
+        created.setTitle("Updated Title 1");
+        created.setDescription("Updated Description 1");
         created.setRating(8.5);
-        created.setReleaseDate(LocalDate.of(1990, 1, 1));
+        created.setReleaseDate(LocalDate.of(2024, 2, 2));
 
         moviesService.update(created.getId(), created);
 
-        MovieDto updated = moviesService.read(created.getId(),true);
+        MovieDto updated = moviesService.read(created.getId(), true);
 
-        validateMovie(created, updated);
-        validateMovieActors(updated);
+        moviesTestUtils.validateMovie(created, updated);
+        moviesTestUtils.validateMovieActors(updated);
 
         moviesService.delete(updated.getId());
 
-        assertThrows(MovieNotFoundException.class, () -> moviesService.read(updated.getId(),true));
+        assertThrows(MovieNotFoundException.class, () -> moviesService.read(updated.getId(), true));
+
+
     }
 
-    private void validateMovie(MovieDto updated, MovieDto original) {
-        assertNotNull(updated);
-        assertNotNull(updated.getId());
-        assertEquals(updated.getTitle(), original.getTitle());
-        assertEquals(updated.getDescription(), original.getDescription());
-        assertEquals(updated.getRating(), original.getRating());
-        assertEquals(updated.getReleaseDate(), original.getReleaseDate());
+
+    @Test
+    void testRetrieveMoviesPaginated() {
+
+        List<MovieDto> movies = moviesTestUtils.createMovieDtoList().stream().toList();
+        movies.forEach(a -> {
+            MovieDto movieDto = moviesService.create(a);
+            a.setId(movieDto.getId());
+        });
+
+        Page<MovieDto> paginatedListFirst = moviesService.listPaginated(0, 5);
+
+        assertNotNull(paginatedListFirst.getContent());
+        assertEquals(5, paginatedListFirst.getContent().size());
+
+        assertArrayEquals(movies.stream().limit(5).toArray(), paginatedListFirst.getContent().toArray());
+
+        Page<MovieDto> paginatedListSecond = moviesService.listPaginated(1, 5);
+
+        assertNotNull(paginatedListSecond.getContent());
+        assertEquals(2, paginatedListSecond.getContent().size());
+
+        assertArrayEquals(movies.subList(5, 7).toArray(), paginatedListSecond.getContent().toArray());
+
+
     }
 
-    private void validateMovieActors(MovieDto movieDto) {
-        assertNotNull(movieDto.getActors());
-        assertEquals(movieDto.getActors().size(), 2);
+    @Test
+    void testRetrieveMovies() {
+        List<MovieDto> movies = moviesTestUtils.createMovieDtoList().stream().toList();
+        movies.forEach(a -> {
+            MovieDto movieDto = moviesService.create(a);
+            a.setId(movieDto.getId());
+        });
 
-        List<ActorDto> actorDtoList = new ArrayList<>(movieDto.getActors());
-        assertEquals(actorDtoList.get(0).getFirstName(), "First Name");
-        assertEquals(actorDtoList.get(0).getLastName(), "Last Name");
-        assertEquals(actorDtoList.get(0).getBirthDate(), LocalDate.of(1989,12,31));
-        assertEquals(actorDtoList.get(0).getGender(), "MALE");
-
-        assertEquals(actorDtoList.get(1).getFirstName(), "Second Name");
-        assertEquals(actorDtoList.get(1).getLastName(), "Last Name");
-        assertEquals(actorDtoList.get(1).getBirthDate(),  LocalDate.of(1990,12,31));
-        assertEquals(actorDtoList.get(1).getGender(), "FEMALE");
-
+        Collection<MovieDto> list = moviesService.list();
+        assertEquals(7, list.size());
+        assertArrayEquals(movies.toArray(), list.toArray());
 
     }
 

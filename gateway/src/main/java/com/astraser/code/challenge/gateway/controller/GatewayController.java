@@ -1,7 +1,6 @@
 package com.astraser.code.challenge.gateway.controller;
 
 import com.astraser.code.challenge.gateway.analytics.RequestCounterService;
-import jakarta.ws.rs.core.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +16,7 @@ public class GatewayController {
     private RequestCounterService requestCounterService;
 
     @GetMapping("/request-counter")
-    private ResponseEntity<?> getRequestsCounter()
-    {
+    private ResponseEntity<?> getRequestsCounter() {
         return ResponseEntity.status(HttpStatus.OK).body(requestCounterService.getRequestCount());
     }
 }

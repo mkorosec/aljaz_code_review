@@ -13,19 +13,19 @@ public interface ActorsMoviesService {
      * @param movieId
      * @returns List of actors for specific movie by movie id
      */
-     Collection<ActorDto> getMovieActors(Long movieId);
+    Collection<ActorDto> getMovieActors(Long movieId);
 
     /**
      * @param actorId
      * @return List of movies for specific actor by actor id
      */
-     Collection<MovieDto> getActorMovies(Long actorId);
+    Collection<MovieDto> getActorMovies(Long actorId);
 
 
     /**
      * @param actorMovieDto
      */
-     ActorMovieDto createActorMovie(ActorMovieDto actorMovieDto);
+    ActorMovieDto createActorMovie(ActorMovieDto actorMovieDto);
 
 
     /**

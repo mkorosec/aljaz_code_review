@@ -1,9 +1,0 @@
-INSERT INTO actor_movie(actor_id,movie_id, created_at,created_by,updated_at,updated_by) VALUES(1,1,'2022-12-31', 'ACCOUNT_MOVIE_MS', null,null);
-INSERT INTO actor_movie(actor_id,movie_id, created_at,created_by,updated_at,updated_by) VALUES(1,2,'2022-12-31', 'ACCOUNT_MOVIE_MS', null,null);
-INSERT INTO actor_movie(actor_id,movie_id, created_at,created_by,updated_at,updated_by) VALUES(2,3,'2022-12-31', 'ACCOUNT_MOVIE_MS', null,null);
-INSERT INTO actor_movie(actor_id,movie_id, created_at,created_by,updated_at,updated_by) VALUES(2,4,'2022-12-31', 'ACCOUNT_MOVIE_MS', null,null);
-INSERT INTO actor_movie(actor_id,movie_id, created_at,created_by,updated_at,updated_by) VALUES(2,5,'2022-12-31', 'ACCOUNT_MOVIE_MS', null,null);
-INSERT INTO actor_movie(actor_id,movie_id, created_at,created_by,updated_at,updated_by) VALUES(3,6,'2022-12-31', 'ACCOUNT_MOVIE_MS', null,null);
-INSERT INTO actor_movie(actor_id,movie_id, created_at,created_by,updated_at,updated_by) VALUES(2,1,'2022-12-31', 'ACCOUNT_MOVIE_MS', null,null);
-INSERT INTO actor_movie(actor_id,movie_id, created_at,created_by,updated_at,updated_by) VALUES(4,2,'2022-12-31', 'ACCOUNT_MOVIE_MS', null,null);
-INSERT INTO actor_movie(actor_id,movie_id, created_at,created_by,updated_at,updated_by) VALUES(5,3,'2022-12-31', 'ACCOUNT_MOVIE_MS', null,null);

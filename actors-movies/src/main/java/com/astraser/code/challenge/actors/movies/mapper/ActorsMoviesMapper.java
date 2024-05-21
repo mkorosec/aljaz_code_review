@@ -5,10 +5,9 @@ import com.astraser.code.challenge.actors.movies.entity.ActorMovie;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ActorMovieMapper {
+public class ActorsMoviesMapper {
 
-    public ActorMovieDto mapToActorMovieDto(ActorMovie actorMovie, ActorMovieDto actorMovieDto)
-    {
+    public ActorMovieDto mapToActorMovieDto(ActorMovie actorMovie, ActorMovieDto actorMovieDto) {
         actorMovieDto.setId(actorMovie.getId());
         actorMovieDto.setActorId(actorMovie.getActorId());
         actorMovieDto.setMovieId(actorMovie.getMovieId());
